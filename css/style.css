@@ -1,0 +1,16 @@
+body {
+    margin: 0;
+    background-color: #1c1c1c;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  #game-container {
+    width: 800px;
+    height: 600px;
+    border: 2px solid #fff;
+  }
+  
