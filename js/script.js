@@ -1,40 +1,43 @@
 const config = {
-    type: Phaser.AUTO,
-    width: 800,
-    height: 600,
-    parent: 'game-container',
-    physics: {
-      default: 'arcade',
-      arcade: {
-        debug: false
-      }
+  type: Phaser.AUTO,
+  width: 800,
+  height: 600,
+  parent: 'game-container',
+  physics: {
+    default: 'arcade',
+    arcade: {
+      debug: false,
     },
-    scene: {
-      preload: preload,
-      create: create,
-      update: update
-    }
-  };
-  
-  const game = new Phaser.Game(config);
-  
-  function preload() {
-    // Carica gli asset
-    this.load.image('road', 'assets/road.png'); // Strada
-    this.load.image('hero', 'assets/hero.png'); // Supereroe
-    this.load.image('enemy', 'assets/enemy.png'); // Nemico
-  }
-  
-  function create() {
-    // Aggiungi la strada
-    this.add.image(400, 300, 'road');
-  
-    // Aggiungi supereroi ed nemici
-    const hero = this.physics.add.sprite(100, 300, 'hero');
-    const enemy = this.physics.add.sprite(700, 300, 'enemy');
-  }
-  
-  function update() {
-    // Logiche di gioco
-  }
-  
+  },
+  scene: {
+    preload: preload,
+    create: create,
+    update: update,
+  },
+};
+
+const game = new Phaser.Game(config);
+
+function preload() {
+  // Carica il tileset e la mappa JSON
+  this.load.image('tiles', 'assets/kenney_rpg-urban-pack/tiles/tilesheet.png'); // Tileset
+  this.load.tilemapTiledJSON('map', 'assets/kenney_rpg-urban-pack/road.json'); // Mappa JSON
+}
+
+function create() {
+  // Configura la mappa dal JSON
+  const map = this.make.tilemap({ key: 'map' });
+  const tileset = map.addTilesetImage('tilesheet', 'tiles');
+
+  // Crea il layer della mappa
+  const roadLayer = map.createLayer('Tile Layer 1', tileset, 0, 0);
+
+  // Aggiungi logiche per la mappa
+  this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+
+  // Logiche future per supereroi e nemici verranno aggiunte qui
+}
+
+function update() {
+  // Logiche di gioco aggiornabili
+}
